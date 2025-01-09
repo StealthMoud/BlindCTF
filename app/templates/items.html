@@ -4,31 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Challenge Items</title>
-    <script>
-        async function fetchItemStatus(itemId) {
-            const response = await fetch(`/get_item?id=${itemId}`);
-            const data = await response.json();
-            const itemElement = document.getElementById(`item-${itemId}`);
-            if (data.result) {
-                itemElement.textContent = `Item ${itemId}: ${data.result}`;
-            } else {
-                itemElement.textContent = `Item ${itemId}: Error retrieving status`;
-            }
-        }
-
-        // Fetch status for all items on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            const itemIds = [1, 2, 3]; // Example item IDs
-            itemIds.forEach(fetchItemStatus);
-        });
-    </script>
+    <link rel="stylesheet" href="../static/styles.css">
 </head>
 <body>
     <h1>Items Status</h1>
     <ul>
-        <li id="item-1">Loading...</li>
-        <li id="item-2">Loading...</li>
-        <li id="item-3">Loading...</li>
+        <li id="item-1" class="loading">Loading...</li>
+        <li id="item-2" class="loading">Loading...</li>
+        <li id="item-3" class="loading">Loading...</li>
     </ul>
+    <script src="../static/scripts.js"></script>
 </body>
 </html>
