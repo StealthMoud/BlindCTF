@@ -4,13 +4,13 @@ from flask import Flask
 def create_app():
     app = Flask(__name__)
 
-    # Connect to MySQL database inside Docker
-    app.config['MYSQL_HOST'] = 'db'  # Service name in docker-compose.yml
+    # Database configuration
+    app.config['MYSQL_HOST'] = 'db'
     app.config['MYSQL_USER'] = 'user'
     app.config['MYSQL_PASSWORD'] = 'password'
     app.config['MYSQL_DB'] = 'blind_ctf'
 
-    # Function to establish connection
+    # Database connection function
     def get_db_connection():
         return pymysql.connect(
             host=app.config['MYSQL_HOST'],
@@ -19,11 +19,10 @@ def create_app():
             database=app.config['MYSQL_DB']
         )
 
-    # Attach database connection function to the app
     app.get_db_connection = get_db_connection
 
-    # Import routes
+    # Register routes
     from .routes import main
-    app.register_blueprint(main)  # Register the Blueprint here
+    app.register_blueprint(main)
 
     return app
