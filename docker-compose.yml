@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "5001:5000"  # Expose Flask app on port 5001
+    environment:
+      FLASK_ENV: development  # Set Flask to development mode
+    depends_on:
+      - db  # Ensure the database is ready before starting the app
+
+  db:
+    image: mysql:latest  # Use the latest MySQL image
+    restart: always  # Restart the container if it crashes
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Root password
+      MYSQL_DATABASE: blind_ctf  # Initial database name
+      MYSQL_USER: user  # Database user
+      MYSQL_PASSWORD: password  # User password
+    ports:
+      - "3306:3306"  # Expose MySQL on port 3306
+    volumes:
+      - ./db_init.sql:/docker-entrypoint-initdb.d/db_init.sql  # Initialize DB on container startup
