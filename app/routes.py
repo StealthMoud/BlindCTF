@@ -39,14 +39,4 @@ def get_item():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@main.route('/test_db')
-def test_db():
-    try:
-        connection = current_app.get_db_connection()
-        cursor = connection.cursor()
-        cursor.execute("SELECT 1")  # Basic query to test connection
-        connection.close()
-        return "Database connection successful!"
-    except Exception as e:
-        return f"Database connection failed: {str(e)}"
 
